@@ -14,12 +14,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link
+        {/* <link
           rel="stylesheet"
           href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
           integrity="sha256-sA+4WqIpZv36VtTQMGcN6EqAhe1k0LPV0mZ5rF5CXb0="
           crossOrigin=""
-        />
+        /> */}
         <link
           rel="stylesheet"
           href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
