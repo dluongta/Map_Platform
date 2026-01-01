@@ -38,6 +38,31 @@ const clearQueryMarkers = () => {
 useEffect(() => {
     if (!map) return;
 
+    const nghean: [number, number] = [19.1976001,105.060676];
+    const ngheanMarker = L.marker(nghean)
+        .addTo(map)
+        .bindPopup("Nghệ An");
+
+    return () => {
+        map.removeLayer(ngheanMarker);
+    };
+}, [map]);
+
+// useEffect(() => {
+//     if (!map) return;
+
+//     const nghean: [number, number] = [19.1976001,105.060676];
+//     const ngheanMarker = L.marker(nghean)
+//         .addTo(map)
+//         .bindPopup("Nghệ An");
+
+//     return () => {
+//         map.removeLayer(ngheanMarker);
+//     };
+// }, [map]);
+useEffect(() => {
+    if (!map) return;
+
     const hanoi: [number, number] = [21.0285, 105.8542];
     const hanoiMarker = L.marker(hanoi)
         .addTo(map)
@@ -47,7 +72,6 @@ useEffect(() => {
         map.removeLayer(hanoiMarker);
     };
 }, [map]);
-
     const watchId = useRef<number | null>(null);
 
     // Hàm để đặt marker và set vị trí map, dùng cho locateUser và tự động từ query
