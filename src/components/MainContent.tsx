@@ -12,9 +12,9 @@ import 'leaflet-routing-machine';
 delete (L.Icon.Default.prototype as any)._getIconUrl;
 
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+    iconRetinaUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
+    iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+    shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
 });
 
 const zoomIn = 16;
@@ -31,47 +31,47 @@ const VietnamMap = () => {
     const [markerLayer, setMarkerLayer] = useState<any>(null);
     const [endMarkerLayer, setEndMarkerLayer] = useState<any>(null);
     const [startText, setStartText] = useState("");
-const clearQueryMarkers = () => {
-    queryMarkers.forEach(marker => map.removeLayer(marker));
-    setQueryMarkers([]);
-};
-useEffect(() => {
-    if (!map) return;
-
-    const nghean: [number, number] = [19.1976001,105.060676];
-    const ngheanMarker = L.marker(nghean)
-        .addTo(map)
-        .bindPopup("Nghệ An");
-
-    return () => {
-        map.removeLayer(ngheanMarker);
+    const clearQueryMarkers = () => {
+        queryMarkers.forEach(marker => map.removeLayer(marker));
+        setQueryMarkers([]);
     };
-}, [map]);
+    useEffect(() => {
+        if (!map) return;
 
-// useEffect(() => {
-//     if (!map) return;
+        const nghean: [number, number] = [19.1976001, 105.060676];
+        const ngheanMarker = L.marker(nghean)
+            .addTo(map)
+            .bindPopup("Nghệ An");
 
-//     const nghean: [number, number] = [19.1976001,105.060676];
-//     const ngheanMarker = L.marker(nghean)
-//         .addTo(map)
-//         .bindPopup("Nghệ An");
+        return () => {
+            map.removeLayer(ngheanMarker);
+        };
+    }, [map]);
 
-//     return () => {
-//         map.removeLayer(ngheanMarker);
-//     };
-// }, [map]);
-useEffect(() => {
-    if (!map) return;
+    // useEffect(() => {
+    //     if (!map) return;
 
-    const hanoi: [number, number] = [21.0285, 105.8542];
-    const hanoiMarker = L.marker(hanoi)
-        .addTo(map)
-        .bindPopup("Hà Nội");
+    //     const nghean: [number, number] = [19.1976001,105.060676];
+    //     const ngheanMarker = L.marker(nghean)
+    //         .addTo(map)
+    //         .bindPopup("Nghệ An");
 
-    return () => {
-        map.removeLayer(hanoiMarker);
-    };
-}, [map]);
+    //     return () => {
+    //         map.removeLayer(ngheanMarker);
+    //     };
+    // }, [map]);
+    useEffect(() => {
+        if (!map) return;
+
+        const hanoi: [number, number] = [21.0285, 105.8542];
+        const hanoiMarker = L.marker(hanoi)
+            .addTo(map)
+            .bindPopup("Hà Nội");
+
+        return () => {
+            map.removeLayer(hanoiMarker);
+        };
+    }, [map]);
     const watchId = useRef<number | null>(null);
 
     // Hàm để đặt marker và set vị trí map, dùng cho locateUser và tự động từ query
@@ -178,156 +178,159 @@ useEffect(() => {
         setRoutingControl(control);
     };
 
-// useEffect(() => {
-//     if (!map) return;
+    // useEffect(() => {
+    //     if (!map) return;
 
-//     const params = new URLSearchParams(window.location.search);
-//     const lat = params.get("lat");
-//     const lon = params.get("lon");
-//     const query = params.get("q");
+    //     const params = new URLSearchParams(window.location.search);
+    //     const lat = params.get("lat");
+    //     const lon = params.get("lon");
+    //     const query = params.get("q");
 
-//     if (lat && lon) {
-//         const latNum = parseFloat(lat);
-//         const lonNum = parseFloat(lon);
-//         if (!isNaN(latNum) && !isNaN(lonNum)) {
-//             setLocation(latNum, lonNum, `Vị trí từ URL: [${latNum.toFixed(4)}, ${lonNum.toFixed(4)}]`);
-//             return; // Ưu tiên lat/lon nếu có
-//         }
-//     }
+    //     if (lat && lon) {
+    //         const latNum = parseFloat(lat);
+    //         const lonNum = parseFloat(lon);
+    //         if (!isNaN(latNum) && !isNaN(lonNum)) {
+    //             setLocation(latNum, lonNum, `Vị trí từ URL: [${latNum.toFixed(4)}, ${lonNum.toFixed(4)}]`);
+    //             return; // Ưu tiên lat/lon nếu có
+    //         }
+    //     }
 
-//     if (query) {
-//         const fetchLocation = async () => {
-//             try {
-//                 const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
-//                 const data = await response.json();
+    //     if (query) {
+    //         const fetchLocation = async () => {
+    //             try {
+    //                 const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`);
+    //                 const data = await response.json();
 
-//                 if (data && data.length > 0) {
-//                     const firstResult = data[0];
-//                     const lat = parseFloat(firstResult.lat);
-//                     const lon = parseFloat(firstResult.lon);
-//                     setLocation(lat, lon, `Địa điểm: ${query} - Vị trí: [${lat.toFixed(4)}, ${lon.toFixed(4)}]`);
-//                 } else {
-//                     alert("Không tìm thấy địa điểm.");
-//                 }
-//             } catch (err) {
-//                 console.error("Lỗi khi tìm địa điểm từ Nominatim:", err);
-//             }
-//         };
+    //                 if (data && data.length > 0) {
+    //                     const firstResult = data[0];
+    //                     const lat = parseFloat(firstResult.lat);
+    //                     const lon = parseFloat(firstResult.lon);
+    //                     setLocation(lat, lon, `Địa điểm: ${query} - Vị trí: [${lat.toFixed(4)}, ${lon.toFixed(4)}]`);
+    //                 } else {
+    //                     alert("Không tìm thấy địa điểm.");
+    //                 }
+    //             } catch (err) {
+    //                 console.error("Lỗi khi tìm địa điểm từ Nominatim:", err);
+    //             }
+    //         };
 
-//         fetchLocation();
-//     }
-// }, [map]);
+    //         fetchLocation();
+    //     }
+    // }, [map]);
 
-useEffect(() => {
-    if (!map) return;
+    useEffect(() => {
+        if (!map) return;
 
-    const params = new URLSearchParams(window.location.search);
-    const lat = params.get("lat");
-    const lon = params.get("lon");
-    const query = params.get("q");
+        const params = new URLSearchParams(window.location.search);
+        const lat = params.get("lat");
+        const lon = params.get("lon");
+        const query = params.get("q");
 
-    // ƯU TIÊN lat/lon
-    if (lat && lon) {
-        const latNum = parseFloat(lat);
-        const lonNum = parseFloat(lon);
+        // ƯU TIÊN lat/lon
+        if (lat && lon) {
+            const latNum = parseFloat(lat);
+            const lonNum = parseFloat(lon);
 
-        if (!isNaN(latNum) && !isNaN(lonNum)) {
-            setLocation(
-                latNum,
-                lonNum,
-                `Vị trí từ URL: [${latNum.toFixed(4)}, ${lonNum.toFixed(4)}]`
-            );
-            return;
+            if (!isNaN(latNum) && !isNaN(lonNum)) {
+                setLocation(
+                    latNum,
+                    lonNum,
+                    `Vị trí từ URL: [${latNum.toFixed(4)}, ${lonNum.toFixed(4)}]`
+                );
+                return;
+            }
         }
-    }
 
-    // XỬ LÝ q = nhiều địa điểm
-    if (query) {
-        const cities = query.split(",").map(c => c.trim());
+        // XỬ LÝ q = nhiều địa điểm
+        if (query) {
+            const cities = query.split(",").map(c => c.trim());
 
-        clearQueryMarkers();
+            clearQueryMarkers();
 
-        const fetchCities = async () => {
-            const newMarkers: L.Marker[] = [];
+            const fetchCities = async () => {
+                const newMarkers: L.Marker[] = [];
 
-            for (const city of cities) {
-                try {
-                    const res = await fetch(
-                        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(city)}`
-                    );
-                    const data = await res.json();
+                for (const city of cities) {
+                    try {
+                        const res = await fetch(
+                            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(city)}`
+                        );
+                        const data = await res.json();
 
-                    if (data && data.length > 0) {
-                        const { lat, lon, display_name } = data[0];
+                        if (data && data.length > 0) {
+                            const { lat, lon, display_name } = data[0];
 
-                        const marker = L.marker([parseFloat(lat), parseFloat(lon)])
-                            .addTo(map)
-                            .bindPopup(display_name);
+                            const marker = L.marker([parseFloat(lat), parseFloat(lon)])
+                                .addTo(map)
+                                .bindPopup(display_name);
 
-                        newMarkers.push(marker);
+                            newMarkers.push(marker);
+                        }
+                    } catch (err) {
+                        console.error("Lỗi tìm:", city, err);
                     }
-                } catch (err) {
-                    console.error("Lỗi tìm:", city, err);
+                }
+
+                setQueryMarkers(newMarkers);
+
+                // Zoom để thấy tất cả marker
+                if (newMarkers.length > 0) {
+                    const group = L.featureGroup(newMarkers);
+                    map.fitBounds(group.getBounds(), { padding: [50, 50] });
+                }
+            };
+
+            fetchCities();
+        }
+    }, [map]);
+    useEffect(() => {
+        if (!map) return;
+
+        const search = window.location.search;
+        if (!search.includes("lat=")) return;
+
+        // lat=21.03&lon=105.75,lat=21.05&lon=105.80
+        const pairs = search
+            .replace("?", "")
+            .split(",");
+
+        const coords: [number, number][] = [];
+
+        pairs.forEach(pair => {
+            const latMatch = pair.match(/lat=([0-9.\-]+)/);
+            const lonMatch = pair.match(/lon=([0-9.\-]+)/);
+
+            if (latMatch && lonMatch) {
+                const lat = parseFloat(latMatch[1]);
+                const lon = parseFloat(lonMatch[1]);
+
+                if (!isNaN(lat) && !isNaN(lon)) {
+                    coords.push([lat, lon]);
                 }
             }
+        });
 
-            setQueryMarkers(newMarkers);
+        if (coords.length === 0) return;
 
-            // Zoom để thấy tất cả marker
-            if (newMarkers.length > 0) {
-                const group = L.featureGroup(newMarkers);
-                map.fitBounds(group.getBounds(), { padding: [50, 50] });
-            }
-        };
-
-        fetchCities();
-    }
-}, [map]);
-useEffect(() => {
-    if (!map) return;
-
-    const params = new URLSearchParams(window.location.search);
-    const all = window.location.search;
-
-    // ----- 1) Parse nhiều lat/lon theo cú pháp lat=...&&lon=... -----
-    const coords: [number, number][] = [];
-
-    // Nếu URL có "lat=" và "lon=" lặp lại
-    const latMatches = all.match(/lat=([0-9.\-]+)/g);
-    const lonMatches = all.match(/lon=([0-9.\-]+)/g);
-
-    if (latMatches && lonMatches && latMatches.length === lonMatches.length) {
-        for (let i = 0; i < latMatches.length; i++) {
-            const latVal = parseFloat(latMatches[i].split('=')[1]);
-            const lonVal = parseFloat(lonMatches[i].split('=')[1]);
-            if (!isNaN(latVal) && !isNaN(lonVal)) {
-                coords.push([latVal, lonVal]);
-            }
-        }
-    }
-
-    // ----- 2) Nếu tồn tại coords thì render marker -----
-    if (coords.length > 0) {
-        // Xóa các marker cũ nếu có
+        // Clear marker cũ
         queryMarkers.forEach(m => map.removeLayer(m));
+
         const newMarkers: L.Marker[] = [];
 
         coords.forEach((c, idx) => {
-            const marker = L.marker(c).addTo(map)
-                .bindPopup(`Point ${idx + 1}: [${c[0].toFixed(4)}, ${c[1].toFixed(4)}]`);
+            const marker = L.marker(c)
+                .addTo(map)
+                .bindPopup(`Point ${idx + 1}<br/>${c[0]}, ${c[1]}`);
             newMarkers.push(marker);
         });
 
         setQueryMarkers(newMarkers);
 
-        // Auto zoom show tất cả
-        if (newMarkers.length > 0) {
-            const group = L.featureGroup(newMarkers);
-            map.fitBounds(group.getBounds(), { padding: [50, 50] });
-        }
-    }
+        // Zoom để thấy tất cả
+        const group = L.featureGroup(newMarkers);
+        map.fitBounds(group.getBounds(), { padding: [50, 50] });
 
-}, [map]);
+    }, [map]);
 
 
     useEffect(() => {
